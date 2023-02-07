@@ -1,7 +1,9 @@
 import React from "react";
-import "../../assets/css/style.css";
 import LineGraph from "../../components/LineGraph";
 import BarGraph from "../../components/BarGraph";
+import Container from "react-bootstrap/Container";
+import { Row, Col } from "react-bootstrap";
+// import Col from "react-bootstrap/Col";
 export default function Home() {
     const x_axis_data = [
         "Jan",
@@ -23,23 +25,33 @@ export default function Home() {
     return (
         <>
             <div className="charts">
-                <LineGraph
-                    x_axis_data={x_axis_data}
-                    y_axis_data={y_axis_data}
-                    label={"Line Chart with Fill"}
-                    fill={true}
-                />
-                <LineGraph
-                    x_axis_data={x_axis_data}
-                    y_axis_data={y_axis_data}
-                    label={"Line Chart without Fill"}
-                    fill={false}
-                />
-                <BarGraph
-                    x_axis_data={x_axis_data}
-                    y_axis_data={y_axis_data}
-                    label={"Bar Graph"}
-                />
+                <Container fluid>
+                    <Row>
+                        <Col md={6} xs={12}>
+                            <LineGraph
+                                x_axis_data={x_axis_data}
+                                y_axis_data={y_axis_data}
+                                label={"Line Chart with Fill"}
+                                fill={true}
+                            />
+                        </Col>
+                        <Col md={6} xs={12}>
+                            <LineGraph
+                                x_axis_data={x_axis_data}
+                                y_axis_data={y_axis_data}
+                                label={"Line Chart without Fill"}
+                                fill={false}
+                            />
+                        </Col>
+                        <Col md={6} xs={12}>
+                            <BarGraph
+                                x_axis_data={x_axis_data}
+                                y_axis_data={y_axis_data}
+                                label={"Bar Graph"}
+                            />
+                        </Col>
+                    </Row>
+                </Container>
             </div>
         </>
     );
