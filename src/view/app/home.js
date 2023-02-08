@@ -3,12 +3,11 @@ import LineGraph from "../../components/LineGraph";
 import BarGraph from "../../components/BarGraph";
 import PieGraph from "../../components/PieGraph";
 import { useState,useEffect } from "react";
-// import Container from "react-bootstrap/Container";
-// import { Row, Col } from "react-bootstrap";
-// import Col from "react-bootstrap/Col";
+import { Card } from "react-bootstrap";
+
 export default function Home() {
 
-    const [chart, setChart] = useState("addform");
+    const [chart, setChart] = useState("");
 
     useEffect(() => {
       setChart(localStorage.getItem("chartName"));
@@ -28,8 +27,8 @@ export default function Home() {
         }
     }
     return (
-        <>
+        <Card style={{height:'500px'}}>
         {getChart()}
-        </>
+        </Card>
     );
 }

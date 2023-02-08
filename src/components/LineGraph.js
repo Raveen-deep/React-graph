@@ -33,7 +33,7 @@ export default function LineGraph() {
                 backgroundColor: "#E3F3BB",
                 borderColor: "gray",
                 tension: 0.2,
-                fill:true,
+                fill:false,
                 pointBackgroundColor: "red",
                 borderWidth: 2,
             },
