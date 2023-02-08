@@ -13,8 +13,8 @@ const getNRandomColor = (count) => {
     }
     return colors;
 };
-
-export default {
-    randomColor: randomColor,
-    getNRandomColor: getNRandomColor,
-};
+const fun ={
+    randomColor,
+    getNRandomColor
+}
+export default fun
