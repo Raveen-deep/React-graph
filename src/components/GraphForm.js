@@ -1,8 +1,9 @@
 import React from "react";
-import { Row, Col, Card } from "react-bootstrap";
 import { Formik, Form, FieldArray } from "formik";
-export default function GraphForm() {
+import { useNavigate } from "react-router";
 
+export default function GraphForm() {
+    const navigate = useNavigate();
     let label = [];
     let value = [];
     const initialValues = {
@@ -19,11 +20,12 @@ export default function GraphForm() {
         v.graphValues.map((ele) => {
             label.push(ele.label);
             value.push(parseInt(ele.value));
+            return ele;
         });
-        localStorage.clear()
         localStorage.setItem("x_axis_data",JSON.stringify(label))
         localStorage.setItem("y_axis_data",JSON.stringify(value))
         localStorage.setItem("label",v.name)
+        navigate("/home");
     };
     return (
         <div>
