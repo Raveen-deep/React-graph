@@ -1,58 +1,34 @@
 import React from "react";
 import LineGraph from "../../components/LineGraph";
 import BarGraph from "../../components/BarGraph";
-import Container from "react-bootstrap/Container";
-import { Row, Col } from "react-bootstrap";
-// import Col from "react-bootstrap/Col";
+import PieGraph from "../../components/PieGraph";
+import { useState,useEffect } from "react";
+import { Card } from "react-bootstrap";
+
 export default function Home() {
-    const x_axis_data = [
-        "Jan",
-        "Feb",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December",
-    ];
-    const y_axis_data = [
-        80, 85, 30, 150, 85, -40, 10.5, 32, 50, 60, 20, -25, -14,
-    ];
+
+    const [chart, setChart] = useState("");
+
+    useEffect(() => {
+      setChart(localStorage.getItem("chartName"));
+    },[]);
+    
+
+    const getChart = () => {
+        switch(chart){
+            case "lineChart":
+                return <LineGraph/>;
+            case "barChart":
+                return <BarGraph />;
+            case "pieChart":
+                return <PieGraph/>
+            default:
+                return <div>Didn't find the selected graph</div>
+        }
+    }
     return (
-        <>
-            <div className="charts">
-                <Container fluid>
-                    <Row>
-                        <Col md={6} xs={12}>
-                            <LineGraph
-                                x_axis_data={x_axis_data}
-                                y_axis_data={y_axis_data}
-                                label={"Line Chart with Fill"}
-                                fill={true}
-                            />
-                        </Col>
-                        <Col md={6} xs={12}>
-                            <LineGraph
-                                x_axis_data={x_axis_data}
-                                y_axis_data={y_axis_data}
-                                label={"Line Chart without Fill"}
-                                fill={false}
-                            />
-                        </Col>
-                        <Col md={6} xs={12}>
-                            <BarGraph
-                                x_axis_data={x_axis_data}
-                                y_axis_data={y_axis_data}
-                                label={"Bar Graph"}
-                            />
-                        </Col>
-                    </Row>
-                </Container>
-            </div>
-        </>
+        <Card style={{height:'500px'}}>
+        {getChart()}
+        </Card>
     );
 }
