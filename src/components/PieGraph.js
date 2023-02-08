@@ -1,14 +1,12 @@
 import React from "react";
-import { Line } from "react-chartjs-2";
-// import { useState, useEffect } from "react";
+import { Pie } from "react-chartjs-2";
 import {
     Chart as ChartJs,
     Title,
     Tooltip,
-    LineElement,
+    // LineElement,
+    ArcElement,
     Legend,
-    CategoryScale,
-    LinearScale,
     PointElement,
     Filler,
 } from "chart.js";
@@ -16,32 +14,30 @@ import {
 ChartJs.register(
     Title,
     Tooltip,
-    LineElement,
+    ArcElement,
     Legend,
-    CategoryScale,
-    LinearScale,
     PointElement,
     Filler
 );
-export default function LineGraph() {
+
+export default function PieGraph() {
     const line_graph_one = {
         labels: JSON.parse(localStorage.getItem("x_axis_data")),
         datasets: [
             {
                 label: localStorage.getItem("label"),
                 data: JSON.parse(localStorage.getItem("y_axis_data")),
-                backgroundColor: "#E3F3BB",
                 borderColor: "gray",
-                tension: 0.2,
-                fill:true,
-                pointBackgroundColor: "red",
-                borderWidth: 2,
+                borderWidth: 1,
+                backgroundColor: [
+                    'rgb(255, 99, 132)'
+                  ],
             },
         ],
     };
     return (
         <>
-            <Line data={line_graph_one} />
+            <Pie data={line_graph_one} />
         </>
     );
 }
