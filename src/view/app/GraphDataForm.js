@@ -25,7 +25,7 @@ export default function GraphDataForm() {
         localStorage.setItem("x_axis_data",JSON.stringify(label))
         localStorage.setItem("y_axis_data",JSON.stringify(value))
         localStorage.setItem("label",v.name)
-        navigate("/home");
+        navigate("/Chart");
     };
     return (
         <div>
