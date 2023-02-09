@@ -21,7 +21,6 @@ const Dashboard = () => {
             <option value="barChart">Bar Chart</option>
             <option value="pieChart">Pie Chart</option>
         </select>
-        {/* <Select value={value} options={options} onChange={handleChange} /> */}
         <button onClick={onSubmit} >  Submit </button>
     </div>
   )

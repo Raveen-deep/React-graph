@@ -2,7 +2,7 @@ import React from "react";
 import { Formik, Form, FieldArray } from "formik";
 import { useNavigate } from "react-router";
 
-export default function GraphForm() {
+export default function GraphDataForm() {
     const navigate = useNavigate();
     let label = [];
     let value = [];
