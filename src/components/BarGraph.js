@@ -19,14 +19,13 @@ ChartJS.register(
     Legend
 );
 
-export default function BarGraph() {
-    
+export default function BarGraph(props) {
     const bar_graph_data = {
-        labels: JSON.parse(localStorage.getItem("x_axis_data")),
+        labels: props.data.x_axis_data,
         datasets: [
             {
-                label: localStorage.getItem("label"),
-                data: JSON.parse(localStorage.getItem("y_axis_data")),
+                label: props.data.label,
+                data: props.data.y_axis_data,
                 backgroundColor: "#E3F3BB",
                 borderColor: "gray",
                 tension: 0.2,
