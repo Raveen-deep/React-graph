@@ -5,7 +5,7 @@ import "/node_modules/react-resizable/css/styles.css";
 import LineGraph from "./components/LineGraph";
 import BarGraph from "./components/BarGraph";
 import { Formik, Form, FieldArray } from "formik";
-import PieGraph from "./components/PieGraph";
+// import PieGraph from "./components/PieGraph";
 import { useState } from "react";
 import { Responsive, WidthProvider } from "react-grid-layout";
 import { TextField, Button } from "@mui/material";
@@ -13,7 +13,7 @@ import DeleteOutlined from "@mui/icons-material/DeleteOutlined";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
+import Select from "@mui/material/Select";
 
 function App() {
     const ResponsiveReactGridLayout = WidthProvider(Responsive);
