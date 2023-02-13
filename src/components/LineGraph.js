@@ -1,4 +1,4 @@
-import React,{useEffect} from "react";
+import React from "react";
 import { Line } from "react-chartjs-2";
 import {
     Chart as ChartJs,
@@ -23,11 +23,6 @@ ChartJs.register(
     Filler
 );
 export default function LineGraph(props) {
-    useEffect(() => {
-      console.log(props);
-    
-      
-    }, [])
     
     const line_graph_one = {
         labels: props.data.x_axis_data,
