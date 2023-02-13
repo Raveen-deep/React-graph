@@ -13,17 +13,17 @@ import {
 
 ChartJs.register(Title, Tooltip, ArcElement, Legend, PointElement, Filler);
 
-export default function PieGraph() {
+export default function PieGraph(props) {
     const line_graph_one = {
-        labels: JSON.parse(localStorage.getItem("x_axis_data")),
+        labels: props.data.x_axis_data,
         datasets: [
             {
-                label: localStorage.getItem("label"),
-                data: JSON.parse(localStorage.getItem("y_axis_data")),
+                label: props.data.label,
+                data: props.data.y_axis_data,
                 borderColor: "gray",
                 borderWidth: 1,
                 backgroundColor: helper.getNRandomColor(
-                    JSON.parse(localStorage.getItem("x_axis_data")).length
+                    props.data.x_axis_data
                 ),
             },
         ],

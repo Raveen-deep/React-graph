@@ -4,7 +4,7 @@ import { useState } from "react";
 
 
 const Dashboard = () => {
-    const [value, setValue] = useState("lineChart")
+    const [value, setValue] = useState("")
     const navigate = useNavigate();
     const onSubmit=()=>{
         localStorage.setItem("chartName",value);

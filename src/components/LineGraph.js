@@ -1,6 +1,5 @@
-import React from "react";
+import React,{useEffect} from "react";
 import { Line } from "react-chartjs-2";
-// import { useState, useEffect } from "react";
 import {
     Chart as ChartJs,
     Title,
@@ -23,13 +22,19 @@ ChartJs.register(
     PointElement,
     Filler
 );
-export default function LineGraph() {
+export default function LineGraph(props) {
+    useEffect(() => {
+      console.log(props);
+    
+      
+    }, [])
+    
     const line_graph_one = {
-        labels: JSON.parse(localStorage.getItem("x_axis_data")),
+        labels: props.data.x_axis_data,
         datasets: [
             {
-                label: localStorage.getItem("label"),
-                data: JSON.parse(localStorage.getItem("y_axis_data")),
+                label: props.data.label,
+                data: props.data.y_axis_data,
                 backgroundColor: "#E3F3BB",
                 borderColor: "gray",
                 tension: 0.2,

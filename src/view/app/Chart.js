@@ -5,7 +5,7 @@ import PieGraph from "../../components/PieGraph";
 import { useState,useEffect } from "react";
 import { Card } from "react-bootstrap";
 
-export default function Home() {
+export default function Chart() {
 
     const [chart, setChart] = useState("");
 
@@ -17,16 +17,17 @@ export default function Home() {
     const getChart = () => {
         switch(chart){
             case "lineChart":
-                return <LineGraph/>;
+                return <LineGraph />;
             case "barChart":
                 return <BarGraph />;
             case "pieChart":
-                return <PieGraph/>
+                return <PieGraph />;
             default:
                 return <div>Didn't find the selected graph</div>
         }
     }
     return (
+
         <Card style={{height:'500px'}}>
         {getChart()}
         </Card>

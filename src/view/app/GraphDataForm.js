@@ -2,7 +2,7 @@ import React from "react";
 import { Formik, Form, FieldArray } from "formik";
 import { useNavigate } from "react-router";
 
-export default function GraphForm() {
+export default function GraphDataForm() {
     const navigate = useNavigate();
     let label = [];
     let value = [];
@@ -25,7 +25,7 @@ export default function GraphForm() {
         localStorage.setItem("x_axis_data",JSON.stringify(label))
         localStorage.setItem("y_axis_data",JSON.stringify(value))
         localStorage.setItem("label",v.name)
-        navigate("/home");
+        navigate("/Chart");
     };
     return (
         <div>
