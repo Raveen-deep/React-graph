@@ -18,8 +18,8 @@ import Select, { SelectChangeEvent } from "@mui/material/Select";
 function App() {
     const ResponsiveReactGridLayout = WidthProvider(Responsive);
     const [value, setValue] = useState("lineChart");
-    const [data, setData] = useState([]);
-    const [label, setLabel] = useState([]);
+    const [y_axis, setYAxis] = useState([]);
+    const [x_axis, setXAxis] = useState([]);
     // let label = [];
     // let data = [];
     const initialValues = {
@@ -52,8 +52,8 @@ function App() {
             data.push(parseInt(ele.value));
             return ele;
         });
-        setLabel(label);
-        setData(data);
+        setXAxis(label);
+        setYAxis(data);
     };
 
     return (
@@ -198,8 +198,8 @@ function App() {
             >
                 <LineGraph
                     data={{
-                        x_axis_data: label,
-                        y_axis_data: data,
+                        x_axis_data: x_axis,
+                        y_axis_data: y_axis,
                         label: 'Line Chart',
                     }}
                 />
@@ -212,8 +212,8 @@ function App() {
                 {/* {data && label && data.length !== 0 && label.length !== 0 && ( */}
                     <BarGraph
                         data={{
-                            x_axis_data: label,
-                            y_axis_data: data,
+                            x_axis_data: x_axis,
+                            y_axis_data: y_axis,
                             label: 'Bar Chart',
                         }}
                     />
