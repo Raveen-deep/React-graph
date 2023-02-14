@@ -48,7 +48,7 @@ function App() {
         let data=[]
         let label=[]
         v.graphValues.map((ele) => {
-            label.push(ele.value)
+            label.push(ele.label)
             data.push(parseInt(ele.value));
             return ele;
         });
