@@ -3,18 +3,36 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "/node_modules/react-grid-layout/css/styles.css";
 import "/node_modules/react-resizable/css/styles.css";
 import LineGraph from "./components/LineGraph";
+import Checkbox from '@mui/material/Checkbox';
+import * as React from 'react';
 import BarGraph from "./components/BarGraph";
 import { Formik, Form, FieldArray } from "formik";
 // import PieGraph from "./components/PieGraph";
+import ListItemText from '@mui/material/ListItemText';
 import { useState } from "react";
 import { Responsive, WidthProvider } from "react-grid-layout";
 import { TextField, Button } from "@mui/material";
 import DeleteOutlined from "@mui/icons-material/DeleteOutlined";
+import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
-
+import Select, { SelectChangeEvent }  from "@mui/material/Select";
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+PaperProps: {
+    style: {
+    maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+    width: 250,
+    },
+},
+};
+const names = [
+   'Line Graph',
+   'Pie Graph',
+   'Chart Graph',
+  ];
 function App() {
     const ResponsiveReactGridLayout = WidthProvider(Responsive);
     const [value, setValue] = useState("lineChart");
@@ -39,7 +57,7 @@ function App() {
         });
     };
 
-    const handleChange = (e) => {
+    const handleChange_single = (e) => {
         setValue(e.target.value);
     };
 
@@ -55,6 +73,17 @@ function App() {
         setXAxis(label);
         setYAxis(data);
     };
+   
+  const [personName, setPersonName] = React.useState([]);
+  const handleChange = (event: SelectChangeEvent) => {
+    const {
+      target: { value },
+    } = event;
+    setPersonName(
+      // On autofill we get a stringified value.
+      typeof value === 'string' ? value.split(',') : value,
+    );
+  };
 
     return (
         <ResponsiveReactGridLayout className="layout" layouts={[]}>
@@ -68,11 +97,31 @@ function App() {
                     <InputLabel >Select Chart</InputLabel>
                     <Select
                        style={{color:'#111414'}}
-                        label="Select Chart" onChange={handleChange} value={value} 
+                        label="Select Chart" onChange={handleChange_single} value={value} 
                     >
                         <MenuItem value="lineChart">Line Chart</MenuItem>
                         <MenuItem value="barChart">Bar Chart</MenuItem>
                         <MenuItem value="pieChart">Pie Chart</MenuItem>
+                    </Select>
+                </FormControl>
+                <FormControl sx={{ mt: 1, width: 200 }} size="small">
+                    <InputLabel id="demo-multiple-checkbox-label">Select Graph</InputLabel>
+                    <Select
+                    labelId="demo-multiple-checkbox-label"
+                    id="demo-multiple-checkbox"
+                    multiple
+                    value={personName}
+                    onChange={handleChange}
+                    input={<OutlinedInput label="Select Graph" />}
+                    renderValue={(selected) => selected.join(', ')}
+                    MenuProps={MenuProps}
+                    >
+                    {names.map((name) => (
+                        <MenuItem key={name} value={name}>
+                        <Checkbox checked={personName.indexOf(name) > -1} />
+                        <ListItemText primary={name} />
+                        </MenuItem>
+                    ))}
                     </Select>
                 </FormControl>
             </div>
