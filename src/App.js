@@ -6,6 +6,7 @@ import LineGraph from "./components/LineGraph";
 import Checkbox from '@mui/material/Checkbox';
 import * as React from 'react';
 import BarGraph from "./components/BarGraph";
+import PieGraph from "./components/PieGraph";
 import { Formik, Form, FieldArray } from "formik";
 // import PieGraph from "./components/PieGraph";
 import ListItemText from '@mui/material/ListItemText';
@@ -29,9 +30,9 @@ PaperProps: {
 },
 };
 const names = [
-   'Line Graph',
-   'Pie Graph',
-   'Chart Graph',
+   'Line Chart',
+   'Pie Chart',
+   'Bar Chart',
   ];
 function App() {
     const ResponsiveReactGridLayout = WidthProvider(Responsive);
@@ -75,7 +76,7 @@ function App() {
     };
    
   const [personName, setPersonName] = React.useState([]);
-  const handleChange = (event: SelectChangeEvent) => {
+  const handleChange = (event) => {
     const {
       target: { value },
     } = event;
@@ -83,6 +84,7 @@ function App() {
       // On autofill we get a stringified value.
       typeof value === 'string' ? value.split(',') : value,
     );
+    console.log("here=>",personName)
   };
 
     return (
@@ -245,20 +247,20 @@ function App() {
                 key="c"
                 data-grid={{ x: 0, y: 6, w: 4, h: 2 }}
             >
-                <LineGraph
+                { personName.includes("Line Chart") && <LineGraph
                     data={{
                         x_axis_data: x_axis,
                         y_axis_data: y_axis,
                         label: 'Line Chart',
                     }}
-                />
+                />}
             </div>
             <div
                 style={{ border: "solid 1px gray", background: "#d2f7d2" }}
                 key="d"
                 data-grid={{ x: 4, y: 0, w: 4, h: 2 }}
             >
-                {/* {data && label && data.length !== 0 && label.length !== 0 && ( */}
+                {personName.includes("Bar Chart") && (
                     <BarGraph
                         data={{
                             x_axis_data: x_axis,
@@ -266,22 +268,28 @@ function App() {
                             label: 'Bar Chart',
                         }}
                     />
-                {/* )} */}
+                 )}
             </div>
             <div
-                style={{ border: "solid 1px gray", background: "#643F0D" }}
+                style={{ border: "solid 1px gray" }}
                 key="e"
                 data-grid={{ x: 8, y: 0, w: 4, h: 2 }}
             >
-                {/* {data && label && data.length !== 0 && label.length !== 0 && (
+                 {personName.includes("Pie Chart") && (
                      <PieGraph
                         data={{
-                            x_axis_data: label,
-                            y_axis_data: data,
-                            label: value,
+                            x_axis_data: x_axis,
+                            y_axis_data: y_axis,
+                            label: 'Pie Chart',
                         }}
                     /> 
-                 )}  */}
+                 )}
+            </div>
+			<div
+                style={{ border: "solid 1px gray", background: "#643F0D" }}
+                key="f"
+                data-grid={{ x: 11, y: 0, w: 4, h: 2 }}
+            >
                 <div className="text-center mt-5"  style={{color:'white'}}>
                 <h1>97</h1>
                 <h5>Tile (Layout5)</h5>
