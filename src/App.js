@@ -95,17 +95,6 @@ function App() {
                 data-grid={{ x: 0, y: 0, w: 3, h: 2 }}
                 className="px-5 py-5"
             >
-                <FormControl size="small">
-                    <InputLabel >Select Chart</InputLabel>
-                    <Select
-                       style={{color:'#111414'}}
-                        label="Select Chart" onChange={handleChange_single} value={value} 
-                    >
-                        <MenuItem value="lineChart">Line Chart</MenuItem>
-                        <MenuItem value="barChart">Bar Chart</MenuItem>
-                        <MenuItem value="pieChart">Pie Chart</MenuItem>
-                    </Select>
-                </FormControl>
                 <FormControl sx={{ mt: 1, width: 200 }} size="small">
                     <InputLabel id="demo-multiple-checkbox-label">Select Graph</InputLabel>
                     <Select

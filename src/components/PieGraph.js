@@ -23,14 +23,14 @@ export default function PieGraph(props) {
                 borderColor: "gray",
                 borderWidth: 1,
                 backgroundColor: helper.getNRandomColor(
-                    props.data.x_axis_data
+                    props.data.y_axis_data.length
                 ),
             },
         ],
     };
     return (
         <>
-            <Pie data={line_graph_one} />
+            <Pie data={line_graph_one} style={{margin:"auto"}} />
         </>
     );
 }
