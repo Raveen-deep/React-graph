@@ -1,6 +1,11 @@
 .App {
-  text-align: center;
+    text-align: center;
 }
-*{
-  font-size: 1.1em ;
+* {
+    font-size: 1.1em;
+}
+.text-field {
+    background-color: white;
+    width: 19%;
+    border-radius: 5px;
 }

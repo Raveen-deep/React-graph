@@ -18,12 +18,21 @@ export default function PieGraph(props) {
         labels: props.data.x_axis_data,
         datasets: [
             {
-                label: props.data.label,
+                label: props.data.personDetail?.first_person,
                 data: props.data.y_axis_data,
                 borderColor: "gray",
                 borderWidth: 1,
                 backgroundColor: helper.getNRandomColor(
                     props.data.y_axis_data.length
+                ),
+            },
+            {
+                label: props.data.personDetail?.second_person,
+                data: props.data.second_y_axis_data,
+                borderColor: "gray",
+                borderWidth: 1,
+                backgroundColor: helper.getNRandomColor(
+                    props.data.second_y_axis_data.length
                 ),
             },
         ],

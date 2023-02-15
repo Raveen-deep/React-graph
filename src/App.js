@@ -18,7 +18,7 @@ import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
+import Select from "@mui/material/Select";
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
@@ -29,46 +29,53 @@ const MenuProps = {
         },
     },
 };
-const names = ["Line Chart", "Pie Chart", "Bar Chart"];
+const names = ["Line Chart", "Bar Chart", "Pie Chart"];
 function App() {
     const ResponsiveReactGridLayout = WidthProvider(Responsive);
-    const [value, setValue] = useState("lineChart");
     const [y_axis, setYAxis] = useState([]);
     const [x_axis, setXAxis] = useState([]);
-    // let label = [];
-    // let data = [];
+    const [personDetail, setPersonDetail] = useState({
+        first_person: "",
+        second_person: "",
+    });
+    const [secondYAxis, setSecondYAxis] = useState([]);
+
     const initialValues = {
-        name: "",
+        first_person: "",
+        second_person: "",
         graphValues: [
             {
-                label: "",
-                value: 0,
+                x_axis_labels: "",
+                y_axis_fist_val: 0,
+                y_axis_second_val: 0,
             },
         ],
     };
-
     const addMore = (push) => {
         push({
-            label: "",
-            value: 0,
+            x_axis_labels: "",
+            y_axis_fist_val: 0,
+            y_axis_second_val: 0,
         });
     };
-
-    const handleChange_single = (e) => {
-        setValue(e.target.value);
-    };
-
     const onSubmit = (v) => {
         console.log(v);
-        let data = [];
-        let label = [];
+        let first_y_axis = [];
+        let second_y_axis = [];
+        let x_axis = [];
         v.graphValues.map((ele) => {
-            label.push(ele.label);
-            data.push(parseInt(ele.value));
+            x_axis.push(ele.x_axis_labels);
+            first_y_axis.push(parseInt(ele.y_axis_fist_val));
+            second_y_axis.push(parseInt(ele.y_axis_second_val));
             return ele;
         });
-        setXAxis(label);
-        setYAxis(data);
+        setPersonDetail({
+            first_person: v.first_person,
+            second_person: v.second_person,
+        });
+        setXAxis(x_axis);
+        setYAxis(first_y_axis);
+        setSecondYAxis(second_y_axis);
     };
 
     const [personName, setPersonName] = React.useState([]);
@@ -118,10 +125,11 @@ function App() {
             </div>
             <div
                 className="px-2 py-2"
-                style={{ border: "solid 1px gray", background: "#71639E" }}
+                style={{ border: "solid 1px gray", background: "#edf0ee" }}
                 key="b"
                 data-grid={{ x: 3, y: 0, w: 9, h: 2 }}
             >
+                <h6 className="mx-1">Add Data</h6>
                 <Formik
                     initialValues={initialValues}
                     onSubmit={onSubmit}
@@ -129,19 +137,41 @@ function App() {
                 >
                     {(formik) => (
                         <Form>
-                            {/* <TextField
+                            {/* <span className="text-field">Month</span> */}
+                            <TextField
                                 size="small"
-                                placeholder="Name"
+                                placeholder="First Person"
                                 variant="outlined"
-                                style={{ backgroundColor: "white" }}
+                                value='Months'
+                                className="text-field"
+                                inputProps={
+                                    { readOnly: true, }
+                                }
+                            />
+                            <TextField
+                                size="small"
+                                placeholder="First Person"
+                                variant="outlined"
+                                className="text-field mx-2"
                                 onChange={(e) => {
                                     formik.setFieldValue(
-                                        "name",
+                                        "first_person",
                                         e.target.value
                                     );
                                 }}
-                            /> */}
-
+                            />
+                            <TextField
+                                size="small"
+                                placeholder="Second Person"
+                                variant="outlined"
+                                className="text-field mx-2"
+                                onChange={(e) => {
+                                    formik.setFieldValue(
+                                        "second_person",
+                                        e.target.value
+                                    );
+                                }}
+                            />
                             <FieldArray name={`graphValues`}>
                                 {({ remove, push }) => (
                                     <>
@@ -150,35 +180,41 @@ function App() {
                                                 (graphValues, index) => (
                                                     <div key={index}>
                                                         <TextField
-                                                            className="mt-2"
+                                                            className="mt-1 text-field"
                                                             size="small"
-                                                            placeholder="Label"
+                                                            placeholder="X-axis"
                                                             variant="outlined"
-                                                            style={{
-                                                                backgroundColor:
-                                                                    "white",
-                                                            }}
                                                             onChange={(e) => {
                                                                 formik.setFieldValue(
-                                                                    `graphValues.${index}.label`,
+                                                                    `graphValues.${index}.x_axis_labels`,
                                                                     e.target
                                                                         .value
                                                                 );
                                                             }}
                                                         />
                                                         <TextField
-                                                            className="mt-2 mx-2"
+                                                            className="mx-2 mt-1 text-field"
                                                             size="small"
-                                                            placeholder="Value"
+                                                            placeholder="Y-axis (First Value)"
                                                             type="number"
                                                             variant="outlined"
-                                                            style={{
-                                                                backgroundColor:
-                                                                    "white",
-                                                            }}
                                                             onChange={(e) => {
                                                                 formik.setFieldValue(
-                                                                    `graphValues.${index}.value`,
+                                                                    `graphValues.${index}.y_axis_fist_val`,
+                                                                    e.target
+                                                                        .value
+                                                                );
+                                                            }}
+                                                        />
+                                                        <TextField
+                                                            className="mx-2 mt-1 text-field"
+                                                            size="small"
+                                                            placeholder="Y-axis (Second Value)"
+                                                            type="number"
+                                                            variant="outlined"
+                                                            onChange={(e) => {
+                                                                formik.setFieldValue(
+                                                                    `graphValues.${index}.y_axis_second_val`,
                                                                     e.target
                                                                         .value
                                                                 );
@@ -195,9 +231,6 @@ function App() {
                                                                 className="mt-1"
                                                                 fontSize="small"
                                                                 variant="outlined"
-                                                                style={{
-                                                                    color: "white",
-                                                                }}
                                                             />
                                                         ) : (
                                                             <></>
@@ -231,23 +264,6 @@ function App() {
                     )}
                 </Formik>
             </div>
-            <div
-                style={{ border: "solid 1px gray", background: "#643F0D" }}
-                key="f"
-                data-grid={{ x: 11, y: 0, w: 4, h: 2 }}
-            >
-                <div className="text-center mt-5" style={{ color: "white" }}>
-                    <h1>97</h1>
-                    <h5>Tile (Layout5)</h5>
-                    <p style={{ fontSize: "14px" }}>
-                        Lorem Ipsum is simply dummy text of the printing and
-                        typesetting industry. Lorem Ipsum has been the
-                        industry's standard dummy text ever since the 1500s,
-                        when an unknown printer took a galley of type and
-                        scrambled it to make a type specimen book.{" "}
-                    </p>
-                </div>
-            </div>
             {personName.includes("Line Chart") && (
                 <div
                     style={{ border: "solid 1px gray", background: "#eeeeee" }}
@@ -258,7 +274,8 @@ function App() {
                         data={{
                             x_axis_data: x_axis,
                             y_axis_data: y_axis,
-                            label: "Line Chart",
+                            second_y_axis_data: secondYAxis,
+                            personDetail: personDetail,
                         }}
                     />
                 </div>
@@ -273,27 +290,32 @@ function App() {
                         data={{
                             x_axis_data: x_axis,
                             y_axis_data: y_axis,
-                            label: "Bar Chart",
+                            second_y_axis_data: secondYAxis,
+                            personDetail: personDetail,
                         }}
                     />
                 </div>
             )}
             {personName.includes("Pie Chart") && (
                 <div
-                    style={{ border: "solid 1px gray" }}
+                    style={{
+                        border: "solid 1px gray",
+                        backgroundColor: "#fceadc",
+                    }}
                     key="e"
                     data-grid={{ x: 8, y: 0, w: 4, h: 2 }}
                 >
-                    <PieGraph style={{width:'100%'}}
+                    <PieGraph
+                        style={{ width: "100%" }}
                         data={{
                             x_axis_data: x_axis,
                             y_axis_data: y_axis,
-                            label: "Pie Chart",
+                            second_y_axis_data: secondYAxis,
+                            personDetail: personDetail,
                         }}
                     />
                 </div>
             )}
-           
         </ResponsiveReactGridLayout>
     );
 }

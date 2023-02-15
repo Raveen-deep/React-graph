@@ -24,13 +24,18 @@ export default function BarGraph(props) {
         labels: props.data.x_axis_data,
         datasets: [
             {
-                label: props.data.label,
+                label: props.data.personDetail?.first_person,
                 data: props.data.y_axis_data,
-                backgroundColor: "#E3F3BB",
+                backgroundColor: "#ebd267",
                 borderColor: "gray",
-                tension: 0.2,
-                fill: true,
-                pointBackgroundColor: "red",
+                // pointBackgroundColor: "red",
+                borderWidth: 2,
+            },
+            {
+                label: props.data.personDetail?.second_person,
+                data: props.data.second_y_axis_data,
+                backgroundColor: "#7abfc2",
+                borderColor: "gray",
                 borderWidth: 2,
             },
         ],
