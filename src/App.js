@@ -3,37 +3,33 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "/node_modules/react-grid-layout/css/styles.css";
 import "/node_modules/react-resizable/css/styles.css";
 import LineGraph from "./components/LineGraph";
-import Checkbox from '@mui/material/Checkbox';
-import * as React from 'react';
+import Checkbox from "@mui/material/Checkbox";
+import * as React from "react";
 import BarGraph from "./components/BarGraph";
 import PieGraph from "./components/PieGraph";
 import { Formik, Form, FieldArray } from "formik";
 // import PieGraph from "./components/PieGraph";
-import ListItemText from '@mui/material/ListItemText';
+import ListItemText from "@mui/material/ListItemText";
 import { useState } from "react";
 import { Responsive, WidthProvider } from "react-grid-layout";
 import { TextField, Button } from "@mui/material";
 import DeleteOutlined from "@mui/icons-material/DeleteOutlined";
-import OutlinedInput from '@mui/material/OutlinedInput';
+import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
-import Select, { SelectChangeEvent }  from "@mui/material/Select";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
-PaperProps: {
-    style: {
-    maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-    width: 250,
+    PaperProps: {
+        style: {
+            maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+            width: 250,
+        },
     },
-},
 };
-const names = [
-   'Line Chart',
-   'Pie Chart',
-   'Bar Chart',
-  ];
+const names = ["Line Chart", "Pie Chart", "Bar Chart"];
 function App() {
     const ResponsiveReactGridLayout = WidthProvider(Responsive);
     const [value, setValue] = useState("lineChart");
@@ -64,55 +60,59 @@ function App() {
 
     const onSubmit = (v) => {
         console.log(v);
-        let data=[]
-        let label=[]
+        let data = [];
+        let label = [];
         v.graphValues.map((ele) => {
-            label.push(ele.label)
+            label.push(ele.label);
             data.push(parseInt(ele.value));
             return ele;
         });
         setXAxis(label);
         setYAxis(data);
     };
-   
-  const [personName, setPersonName] = React.useState([]);
-  const handleChange = (event) => {
-    const {
-      target: { value },
-    } = event;
-    setPersonName(
-      // On autofill we get a stringified value.
-      typeof value === 'string' ? value.split(',') : value,
-    );
-    console.log("here=>",personName)
-  };
+
+    const [personName, setPersonName] = React.useState([]);
+    const handleChange = (event) => {
+        const {
+            target: { value },
+        } = event;
+        setPersonName(
+            // On autofill we get a stringified value.
+            typeof value === "string" ? value.split(",") : value
+        );
+        console.log("here=>", personName);
+    };
 
     return (
         <ResponsiveReactGridLayout className="layout" layouts={[]}>
             <div
-                style={{ border: "solid 1px gray",backgroundColor:'#f1f8e9' }}
+                style={{ border: "solid 1px gray", backgroundColor: "#f1f8e9" }}
                 key="a"
                 data-grid={{ x: 0, y: 0, w: 3, h: 2 }}
                 className="px-5 py-5"
             >
                 <FormControl sx={{ mt: 1, width: 200 }} size="small">
-                    <InputLabel id="demo-multiple-checkbox-label">Select Graph</InputLabel>
+                    <InputLabel id="demo-multiple-checkbox-label">
+                        Select Graph
+                    </InputLabel>
                     <Select
-                    labelId="demo-multiple-checkbox-label"
-                    id="demo-multiple-checkbox"
-                    multiple
-                    value={personName}
-                    onChange={handleChange}
-                    input={<OutlinedInput label="Select Graph" />}
-                    renderValue={(selected) => selected.join(', ')}
-                    MenuProps={MenuProps}
+                        labelId="demo-multiple-checkbox-label"
+                        id="demo-multiple-checkbox"
+                        multiple
+                        value={personName}
+                        onChange={handleChange}
+                        input={<OutlinedInput label="Select Graph" />}
+                        renderValue={(selected) => selected.join(", ")}
+                        MenuProps={MenuProps}
                     >
-                    {names.map((name) => (
-                        <MenuItem key={name} value={name}>
-                        <Checkbox checked={personName.indexOf(name) > -1} />
-                        <ListItemText primary={name} />
-                        </MenuItem>
-                    ))}
+                        {names.map((name) => (
+                            <MenuItem key={name} value={name}>
+                                <Checkbox
+                                    checked={personName.indexOf(name) > -1}
+                                />
+                                <ListItemText primary={name} />
+                            </MenuItem>
+                        ))}
                     </Select>
                 </FormControl>
             </div>
@@ -232,59 +232,68 @@ function App() {
                 </Formik>
             </div>
             <div
-                style={{ border: "solid 1px gray", background: "#eeeeee" }}
-                key="c"
-                data-grid={{ x: 0, y: 6, w: 4, h: 2 }}
-            >
-                { personName.includes("Line Chart") && <LineGraph
-                    data={{
-                        x_axis_data: x_axis,
-                        y_axis_data: y_axis,
-                        label: 'Line Chart',
-                    }}
-                />}
-            </div>
-            <div
-                style={{ border: "solid 1px gray", background: "#d2f7d2" }}
-                key="d"
-                data-grid={{ x: 4, y: 0, w: 4, h: 2 }}
-            >
-                {personName.includes("Bar Chart") && (
-                    <BarGraph
-                        data={{
-                            x_axis_data: x_axis,
-                            y_axis_data: y_axis,
-                            label: 'Bar Chart',
-                        }}
-                    />
-                 )}
-            </div>
-            <div
-                style={{ border: "solid 1px gray" }}
-                key="e"
-                data-grid={{ x: 8, y: 0, w: 4, h: 2 }}
-            >
-                 {personName.includes("Pie Chart") && (
-                     <PieGraph
-                        data={{
-                            x_axis_data: x_axis,
-                            y_axis_data: y_axis,
-                            label: 'Pie Chart',
-                        }}
-                    /> 
-                 )}
-            </div>
-			<div
                 style={{ border: "solid 1px gray", background: "#643F0D" }}
                 key="f"
                 data-grid={{ x: 11, y: 0, w: 4, h: 2 }}
             >
-                <div className="text-center mt-5"  style={{color:'white'}}>
-                <h1>97</h1>
-                <h5>Tile (Layout5)</h5>
-                <p style={{fontSize:'14px'}}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. </p>
+                <div className="text-center mt-5" style={{ color: "white" }}>
+                    <h1>97</h1>
+                    <h5>Tile (Layout5)</h5>
+                    <p style={{ fontSize: "14px" }}>
+                        Lorem Ipsum is simply dummy text of the printing and
+                        typesetting industry. Lorem Ipsum has been the
+                        industry's standard dummy text ever since the 1500s,
+                        when an unknown printer took a galley of type and
+                        scrambled it to make a type specimen book.{" "}
+                    </p>
                 </div>
             </div>
+            {personName.includes("Line Chart") && (
+                <div
+                    style={{ border: "solid 1px gray", background: "#eeeeee" }}
+                    key="c"
+                    data-grid={{ x: 0, y: 6, w: 4, h: 2 }}
+                >
+                    <LineGraph
+                        data={{
+                            x_axis_data: x_axis,
+                            y_axis_data: y_axis,
+                            label: "Line Chart",
+                        }}
+                    />
+                </div>
+            )}
+            {personName.includes("Bar Chart") && (
+                <div
+                    style={{ border: "solid 1px gray", background: "#d2f7d2" }}
+                    key="d"
+                    data-grid={{ x: 4, y: 0, w: 4, h: 2 }}
+                >
+                    <BarGraph
+                        data={{
+                            x_axis_data: x_axis,
+                            y_axis_data: y_axis,
+                            label: "Bar Chart",
+                        }}
+                    />
+                </div>
+            )}
+            {personName.includes("Pie Chart") && (
+                <div
+                    style={{ border: "solid 1px gray" }}
+                    key="e"
+                    data-grid={{ x: 8, y: 0, w: 4, h: 2 }}
+                >
+                    <PieGraph style={{width:'100%'}}
+                        data={{
+                            x_axis_data: x_axis,
+                            y_axis_data: y_axis,
+                            label: "Pie Chart",
+                        }}
+                    />
+                </div>
+            )}
+           
         </ResponsiveReactGridLayout>
     );
 }
