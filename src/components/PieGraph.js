@@ -36,10 +36,17 @@ export default function PieGraph(props) {
                 ),
             },
         ],
+        
     };
+    // const option = {
+    //     plugins: {
+    //         legend: false // Hide legend
+    //     },
+
+    // };
     return (
         <>
-            <Pie data={line_graph_one} style={{margin:"auto"}} />
+            <Pie data={line_graph_one}  style={{margin:"auto"}} />
         </>
     );
 }

@@ -26,7 +26,7 @@ export default function BarGraph(props) {
             {
                 label: props.data.personDetail?.first_person,
                 data: props.data.y_axis_data,
-                backgroundColor: "#ebd267",
+                backgroundColor: "#FC076F",
                 borderColor: "gray",
                 // pointBackgroundColor: "red",
                 borderWidth: 2,
@@ -34,13 +34,17 @@ export default function BarGraph(props) {
             {
                 label: props.data.personDetail?.second_person,
                 data: props.data.second_y_axis_data,
-                backgroundColor: "#7abfc2",
+                backgroundColor: "#F48517",
                 borderColor: "gray",
                 borderWidth: 2,
             },
+            
         ],
     };
     const option = {
+        plugins: {
+            legend: false // Hide legend
+        },
         scales: {
             x: {
                 grid: {
