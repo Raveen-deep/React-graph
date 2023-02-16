@@ -24,20 +24,44 @@ export default function BarGraph(props) {
         labels: props.data.x_axis_data,
         datasets: [
             {
-                label: props.data.label,
+                label: props.data.personDetail?.first_person,
                 data: props.data.y_axis_data,
-                backgroundColor: "#E3F3BB",
+                backgroundColor: "#FC076F",
                 borderColor: "gray",
-                tension: 0.2,
-                fill: true,
-                pointBackgroundColor: "red",
+                // pointBackgroundColor: "red",
                 borderWidth: 2,
             },
+            {
+                label: props.data.personDetail?.second_person,
+                data: props.data.second_y_axis_data,
+                backgroundColor: "#F48517",
+                borderColor: "gray",
+                borderWidth: 2,
+            },
+            
         ],
+    };
+    const option = {
+        plugins: {
+            legend: false // Hide legend
+        },
+        scales: {
+            x: {
+                grid: {
+                    display: false,
+                },
+            },
+            y: {
+                grid: {
+                    display: false,
+                },
+            },
+            
+        },
     };
     return (
         <>
-            <Bar data={bar_graph_data} />
+            <Bar data={bar_graph_data}  options={option} />
         </>
     );
 }
