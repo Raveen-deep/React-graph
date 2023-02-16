@@ -8,7 +8,6 @@ import * as React from "react";
 import BarGraph from "./components/BarGraph";
 import PieGraph from "./components/PieGraph";
 import { Formik, Form, FieldArray } from "formik";
-// import PieGraph from "./components/PieGraph";
 import ListItemText from "@mui/material/ListItemText";
 import { useState } from "react";
 import { Responsive, WidthProvider } from "react-grid-layout";
@@ -19,15 +18,17 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
-    PaperProps: {
-        style: {
-            maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-            width: 250,
-        },
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250,
     },
+  },
 };
 const names = ["Line Chart", "Bar Chart", "Pie Chart"];
 function App() {
@@ -38,8 +39,24 @@ function App() {
         first_person: "",
         second_person: "",
     });
+	const [theme, setTheme] = useState("light");
     const [secondYAxis, setSecondYAxis] = useState([]);
+	
+	const darkTheme = createTheme({
+  palette: {
+    mode: "dark",
+  },
+});
+const lightTheme = createTheme({
+  palette: {
+    mode: "light",
+  },
+});
 
+const handleThemeChange = () => {
+    const isCurrentDark = theme === "dark";
+    setTheme(isCurrentDark ? "light" : "dark");
+  };
     const initialValues = {
         first_person: "",
         second_person: "",
@@ -78,40 +95,55 @@ function App() {
         setSecondYAxis(second_y_axis);
     };
 
-    const [personName, setPersonName] = React.useState([]);
-    const handleChange = (event) => {
-        const {
-            target: { value },
-        } = event;
-        setPersonName(
-            // On autofill we get a stringified value.
-            typeof value === "string" ? value.split(",") : value
-        );
-        console.log("here=>", personName);
-    };
 
-    return (
-        <ResponsiveReactGridLayout className="layout" layouts={[]}>
-            <div
-                style={{ border: "solid 1px gray", backgroundColor: "#f1f8e9" }}
-                key="a"
-                data-grid={{ x: 0, y: 0, w: 3, h: 2 }}
-                className="px-5 py-5"
+  const [personName, setPersonName] = React.useState([]);
+  const handleChange = (event) => {
+    const {
+      target: { value },
+    } = event;
+    setPersonName(
+      // On autofill we get a stringified value.
+      typeof value === "string" ? value.split(",") : value
+    );
+    console.log("here=>", personName);
+  };
+
+  return (
+    <ThemeProvider theme={theme === "dark" ? darkTheme : lightTheme}>
+      <CssBaseline />
+      <ResponsiveReactGridLayout className="layout">
+        <div
+          style={{ border: "solid 1px gray", backgroundColor: "#C98D26" }}
+          key="a"
+          data-grid={{ x: 0, y: 0, w: 3, h: 2 }}
+          className="px-5 py-5"
+        >
+          {/* <FormControl sx={{ mt: 1, width: 200 }} size="small"> */}
+            <span id="demo-theme-label">Select Theme
+            <label className="switch">
+              <input
+                type="checkbox"
+                onChange={handleThemeChange}
+                checked={theme === "dark"}
+              />
+              <span className="slider round"></span>
+            </label>
+            </span>
+          {/* </FormControl> */}
+          <FormControl sx={{ mt: 1, width: 200 }} size="small">
+            <InputLabel id="demo-multiple-checkbox-label">
+              Select Graph
+            </InputLabel>
+            <Select
+              labelId="demo-multiple-checkbox-label"
+              id="demo-multiple-checkbox"
+              multiple
+              value={personName}
+              onChange={handleChange}
+              input={<OutlinedInput label="Select Graph" />}
+              renderValue={(selected) => selected.join(", ")}
+              MenuProps={MenuProps}
             >
-                <FormControl sx={{ mt: 1, width: 200 }} size="small">
-                    <InputLabel id="demo-multiple-checkbox-label">
-                        Select Graph
-                    </InputLabel>
-                    <Select
-                        labelId="demo-multiple-checkbox-label"
-                        id="demo-multiple-checkbox"
-                        multiple
-                        value={personName}
-                        onChange={handleChange}
-                        input={<OutlinedInput label="Select Graph" />}
-                        renderValue={(selected) => selected.join(", ")}
-                        MenuProps={MenuProps}
-                    >
                         {names.map((name) => (
                             <MenuItem key={name} value={name}>
                                 <Checkbox
@@ -125,7 +157,7 @@ function App() {
             </div>
             <div
                 className="px-2 py-2"
-                style={{ border: "solid 1px gray", background: "#edf0ee" }}
+                style={{ border: "solid 1px gray", background: "rgb(154,142,151)" }}
                 key="b"
                 data-grid={{ x: 3, y: 0, w: 9, h: 2 }}
             >
@@ -140,9 +172,8 @@ function App() {
                             {/* <span className="text-field">Month</span> */}
                             <TextField
                                 size="small"
-                                placeholder="First Person"
+                                placeholder="Chart Label"
                                 variant="outlined"
-                                value='Months'
                                 className="text-field"
                                 inputProps={
                                     { readOnly: true, }
@@ -317,6 +348,7 @@ function App() {
                 </div>
             )}
         </ResponsiveReactGridLayout>
+		</ThemeProvider>
     );
 }
 
