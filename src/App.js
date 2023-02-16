@@ -43,20 +43,16 @@ function App() {
     const [secondYAxis, setSecondYAxis] = useState([]);
 	
 	const darkTheme = createTheme({
-  palette: {
-    mode: "dark",
-  },
-});
-const lightTheme = createTheme({
-  palette: {
-    mode: "light",
-  },
-});
+      palette: {
+        primary: {
+            main:"#08082E",
+        },
+        secondary:{
+            main: "#fc076fd9",
+        }
+    }
+    });
 
-const handleThemeChange = () => {
-    const isCurrentDark = theme === "dark";
-    setTheme(isCurrentDark ? "light" : "dark");
-  };
     const initialValues = {
         first_person: "",
         second_person: "",
@@ -91,7 +87,7 @@ const handleThemeChange = () => {
             second_person: v.second_person,
         });
         setXAxis(x_axis);
-        setYAxis(first_y_axis);
+        setYAxis(first_y_axis);   
         setSecondYAxis(second_y_axis);
     };
 
@@ -109,27 +105,15 @@ const handleThemeChange = () => {
   };
 
   return (
-    <ThemeProvider theme={theme === "dark" ? darkTheme : lightTheme}>
+      <ThemeProvider theme={darkTheme}>
       <CssBaseline />
-      <ResponsiveReactGridLayout className="layout">
+        <ResponsiveReactGridLayout className="layout">
         <div
           style={{ border: "solid 1px gray", backgroundColor: "#C98D26" }}
           key="a"
           data-grid={{ x: 0, y: 0, w: 3, h: 2 }}
           className="px-5 py-5"
         >
-          {/* <FormControl sx={{ mt: 1, width: 200 }} size="small"> */}
-            <span id="demo-theme-label">Select Theme
-            <label className="switch">
-              <input
-                type="checkbox"
-                onChange={handleThemeChange}
-                checked={theme === "dark"}
-              />
-              <span className="slider round"></span>
-            </label>
-            </span>
-          {/* </FormControl> */}
           <FormControl sx={{ mt: 1, width: 200 }} size="small">
             <InputLabel id="demo-multiple-checkbox-label">
               Select Graph
@@ -348,7 +332,7 @@ const handleThemeChange = () => {
                 </div>
             )}
         </ResponsiveReactGridLayout>
-		</ThemeProvider>
+		</ThemeProvider>  
     );
 }
 
