@@ -40,9 +40,24 @@ export default function BarGraph(props) {
             },
         ],
     };
+    const option = {
+        scales: {
+            x: {
+                grid: {
+                    display: false,
+                },
+            },
+            y: {
+                grid: {
+                    display: false,
+                },
+            },
+            
+        },
+    };
     return (
         <>
-            <Bar data={bar_graph_data} />
+            <Bar data={bar_graph_data}  options={option} />
         </>
     );
 }

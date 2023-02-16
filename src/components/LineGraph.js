@@ -23,7 +23,6 @@ ChartJs.register(
     Filler
 );
 export default function LineGraph(props) {
-    
     const line_graph_one = {
         labels: props.data.x_axis_data,
         datasets: [
@@ -33,7 +32,7 @@ export default function LineGraph(props) {
                 backgroundColor: "#ebd267",
                 borderColor: "gray",
                 // tension: 0.2,
-                fill:false,
+                fill: false,
                 pointBackgroundColor: "#ebd267",
                 borderWidth: 2,
             },
@@ -43,15 +42,30 @@ export default function LineGraph(props) {
                 backgroundColor: "#7abfc2",
                 borderColor: "gray",
                 // tension: ,
-                fill:false,
+                fill: false,
                 pointBackgroundColor: "#7abfc2",
                 borderWidth: 2,
             },
         ],
     };
+    const option = {
+        scales: {
+            x: {
+                grid: {
+                    display: false,
+                },
+            },
+            y: {
+                grid: {
+                    display: false,
+                },
+            },
+            
+        },
+    };
     return (
         <>
-            <Line data={line_graph_one} />
+            <Line data={line_graph_one} options={option} />
         </>
     );
 }
