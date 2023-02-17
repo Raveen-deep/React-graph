@@ -51,9 +51,9 @@ export default function LineGraph(props) {
   const option = {
     responsive: true,
     maintainAspectRatio: false,
-    plugins: {
-      legend: false, // Hide legend
-    },
+    // plugins: {
+    //   legend: false, // Hide legend
+    // },
     scales: {
       x: {
         grid: {
