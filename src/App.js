@@ -3,58 +3,46 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "/node_modules/react-grid-layout/css/styles.css";
 import "/node_modules/react-resizable/css/styles.css";
 import LineGraph from "./components/LineGraph";
-// import Checkbox from "@mui/material/Checkbox";
+import Checkbox from "@mui/material/Checkbox";
 import * as React from "react";
 import BarGraph from "./components/BarGraph";
 import PieGraph from "./components/PieGraph";
 import { Formik, Form, FieldArray } from "formik";
-// import ListItemText from "@mui/material/ListItemText";
+import ListItemText from "@mui/material/ListItemText";
 import { useState } from "react";
 import { Responsive, WidthProvider } from "react-grid-layout";
 import { TextField, Button } from "@mui/material";
 import DeleteOutlined from "@mui/icons-material/DeleteOutlined";
-// import OutlinedInput from "@mui/material/OutlinedInput";
-// import InputLabel from "@mui/material/InputLabel";
-// import MenuItem from "@mui/material/MenuItem";
-// import FormControl from "@mui/material/FormControl";
+import OutlinedInput from "@mui/material/OutlinedInput";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
 import DoughnutGraph from "./components/DoughnutGraph";
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
-// import Select from "@mui/material/Select";
+import Select from "@mui/material/Select";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-// const ITEM_HEIGHT = 48;
-// const ITEM_PADDING_TOP = 8;
-// const MenuProps = {
-//     PaperProps: {
-//         style: {
-//             maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-//             width: 250,
-//         },
-//     },
-// };
-// const names = ["Line Chart", "Bar Chart", "Pie Chart"];
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+    PaperProps: {
+        style: {
+            maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+            width: 250,
+        },
+    },
+};
+const names = ["Line Chart", "Bar Chart", "Pie Chart", "Doughnut Graph"];
 function App() {
     const ResponsiveReactGridLayout = WidthProvider(Responsive);
-    const [y_axis, setYAxis] = useState(["20", "50", "49", "05", "88"]);
-    const [x_axis, setXAxis] = useState([
-        "Jan",
-        "Feb",
-        "March",
-        "April",
-        "May",
-    ]);
+    const [y_axis, setYAxis] = useState([]);
+    const [x_axis, setXAxis] = useState([]);
     const [personDetail, setPersonDetail] = useState({
         first_person: "",
         second_person: "",
     });
     // const [theme, setTheme] = useState("light");
-    const [secondYAxis, setSecondYAxis] = useState([
-        "88",
-        "41",
-        "-45",
-        "51",
-        "87",
-    ]);
+    const [secondYAxis, setSecondYAxis] = useState([]);
 
     const darkTheme = createTheme({
         palette: {
@@ -105,40 +93,41 @@ function App() {
         setSecondYAxis(second_y_axis);
     };
 
-    // const [personName, setPersonName] = React.useState([]);
-    // const handleChange = (event) => {
-    //     const {
-    //         target: { value },
-    //     } = event;
-    //     setPersonName(
-    //         // On autofill we get a stringified value.
-    //         typeof value === "string" ? value.split(",") : value
-    //     );
-    //     console.log("here=>", personName);
-    // };
+    const [personName, setPersonName] = React.useState([]);
+    const handleChange = (event) => {
+        const {
+            target: { value },
+        } = event;
+        setPersonName(
+            // On autofill we get a stringified value.
+            typeof value === "string" ? value.split(",") : value
+        );
+        console.log("here=>", personName);
+    };
 
     return (
         <ThemeProvider theme={darkTheme}>
             <CssBaseline />
             <ResponsiveReactGridLayout className="layout">
-                {/* <div
+                <div
                     key="a"
                     data-grid={{ x: 0, y: 0, w: 3, h: 2 }}
                     className="px-5 py-5 chart-div"
                 >
-                    <FormControl sx={{ mt: 1, width: 200 }} size="small">
-                        <InputLabel id="demo-multiple-checkbox-label">
-                            Select Graph
-                        </InputLabel>
+                    <FormControl
+                        sx={{ mt: 1, width: 200 }}
+                        size="small"
+                        style={{ width: "-webkit-fill-available" }}
+                    >
+                        <InputLabel>Select Graph</InputLabel>
                         <Select
-                            labelId="demo-multiple-checkbox-label"
-                            id="demo-multiple-checkbox"
                             multiple
                             value={personName}
                             onChange={handleChange}
                             input={<OutlinedInput label="Select Graph" />}
                             renderValue={(selected) => selected.join(", ")}
                             MenuProps={MenuProps}
+                            style={{ background: "white" }}
                         >
                             {names.map((name) => (
                                 <MenuItem key={name} value={name}>
@@ -150,11 +139,11 @@ function App() {
                             ))}
                         </Select>
                     </FormControl>
-                </div> */}
+                </div>
                 <div
                     className="px-2 py-2 chart-div"
                     key="b"
-                    data-grid={{ x: 0, y: 0, w: 9, h: 2 }}
+                    data-grid={{ x: 3, y: 0, w: 9, h: 2 }}
                 >
                     <h5 className="mx-1" style={{ color: "white" }}>
                         Add Data's
@@ -167,7 +156,7 @@ function App() {
                         {(formik) => (
                             <Form>
                                 {/* <span className="text-field">Month</span> */}
-                                {/* <TextField
+                                <TextField
                                     size="small"
                                     placeholder="Chart Label"
                                     variant="outlined"
@@ -198,7 +187,7 @@ function App() {
                                             e.target.value
                                         );
                                     }}
-                                /> */}
+                                />
                                 <FieldArray name={`graphValues`}>
                                     {({ remove, push }) => (
                                         <>
@@ -263,7 +252,8 @@ function App() {
                                                                         )
                                                                     }
                                                                     style={{
-                                                                        color: "white", cursor:'pointer'
+                                                                        color: "white",
+                                                                        cursor: "pointer",
                                                                     }}
                                                                     className="mt-3"
                                                                     fontSize="small"
@@ -304,86 +294,105 @@ function App() {
                         )}
                     </Formik>
                 </div>
-                {/* {personName.includes("Line Chart") && ( */}
-                <div
-                    className="chart-div"
-                    key="c"
-                    data-grid={{ x: 0, y: 6, w: 4, h: 2 }}
-                >
-                    <LineGraph
-                        data={{
-                            x_axis_data: x_axis,
-                            y_axis_data: y_axis,
-                            second_y_axis_data: secondYAxis,
-                            personDetail: personDetail,
-                        }}
-                    />
-                </div>
-                {/* )} */}
-                {/* {personName.includes("Bar Chart") && ( */}
-                <div
-                    className="chart-div"
-                    key="d"
-                    data-grid={{ x: 4, y: 0, w: 4, h: 2 }}
-                >
-                    <BarGraph
-                        data={{
-                            x_axis_data: x_axis,
-                            y_axis_data: y_axis,
-                            second_y_axis_data: secondYAxis,
-                            personDetail: personDetail,
-                        }}
-                    />
-                </div>
-                {/* )} */}
-                {/* {personName.includes("Pie Chart") && ( */}
-                <div
-                    className="chart-div"
-                    key="e"
-                    data-grid={{ x: 9, y: 0, w: 3, h: 2 }}
-                >
-                    <PieGraph
-                        className="chart-div"
-                        style={{ width: "100%" }}
-                        data={{
-                            x_axis_data: x_axis,
-                            y_axis_data: y_axis,
-                            second_y_axis_data: secondYAxis,
-                            personDetail: personDetail,
-                        }}
-                    />
-                </div>
-                {/* )} */}
-                <div
-                    className="chart-div py-5 px-5"
-                    key="f"
-                    data-grid={{ x: 9, y: 4, w: 4, h: 2 }}
-                >
-                    <h5 className="doughnut-title pb-2">Doughnut Graph</h5>
+                {personName.includes("Line Chart") && (
                     <div
-                        style={{
-                            display: "flex",
-                            justifyContent: "space-between",
-                        }}
+                        className="chart-div"
+                        key="c"
+                        data-grid={{ x: 0, y: 6, w: 4, h: 2 }}
                     >
-                        <DoughnutGraph />
-                        <div>
-                            <FiberManualRecordIcon
-                                fontSize="small"
-                                style={{ color: "#7618F9" }}
+                        <LineGraph
+                            data={{
+                                x_axis_data: x_axis,
+                                y_axis_data: y_axis,
+                                second_y_axis_data: secondYAxis,
+                                personDetail: personDetail,
+                            }}
+                        />
+                    </div>
+                )}
+                {personName.includes("Bar Chart") && (
+                    <div
+                        className="chart-div"
+                        key="d"
+                        data-grid={{ x: 4, y: 0, w: 4, h: 2 }}
+                    >
+                        <BarGraph
+                            data={{
+                                x_axis_data: x_axis,
+                                y_axis_data: y_axis,
+                                second_y_axis_data: secondYAxis,
+                                personDetail: personDetail,
+                            }}
+                        />
+                    </div>
+                )}
+                {personName.includes("Pie Chart") && (
+                    <div
+                        className="chart-div"
+                        key="e"
+                        data-grid={{ x: 8, y: 0, w: 4, h: 2 }}
+                    >
+                        <PieGraph
+                            className="chart-div"
+                            style={{ width: "100%" }}
+                            data={{
+                                x_axis_data: x_axis,
+                                y_axis_data: y_axis,
+                                second_y_axis_data: secondYAxis,
+                                personDetail: personDetail,
+                            }}
+                        />
+                    </div>
+                )}
+                {personName.includes("Doughnut Graph") && (
+                    <div
+                        className="chart-div py-5 px-5"
+                        key="f"
+                        data-grid={{ x: 0, y: 6, w: 4, h: 2 }}
+                    >
+                        <h5 className="doughnut-title pb-2">Doughnut Graph</h5>
+                        <div
+                            style={{
+                                display: "flex",
+                                justifyContent: "space-between",
+                            }}
+                        >
+                            <DoughnutGraph
+                                data={{
+                                    x_axis_data: x_axis,
+                                    y_axis_data: y_axis,
+                                    second_y_axis_data: secondYAxis,
+                                    personDetail: personDetail,
+                                }}
                             />
-                            <h6 className="doughnut-title" style={{marginTop:'-20px'}}>First Data</h6>
-                        </div>
-                        <br/>
-                        <div>
-                            <FiberManualRecordIcon
-                                fontSize="small"
-                                style={{ color: "#4DA9FC" }}
-                            />
-                            <h6 className="doughnut-title" style={{marginTop:'-20px'}}>Second Data</h6>
+                            <div>
+                                <FiberManualRecordIcon
+                                    fontSize="small"
+                                    style={{ color: "#7618F9" }}
+                                />
+                                <h6
+                                    className="doughnut-title"
+                                    style={{ marginTop: "-20px" }}
+                                >
+                                    First Data
+                                </h6>
+                            </div>
+                            <br />
+                            <div>
+                                <FiberManualRecordIcon
+                                    fontSize="small"
+                                    style={{ color: "#4DA9FC" }}
+                                />
+                                <h6
+                                    className="doughnut-title"
+                                    style={{ marginTop: "-20px" }}
+                                >
+                                    Second Data
+                                </h6>
+                            </div>
                         </div>
                     </div>
-                </div>
+                )}
             </ResponsiveReactGridLayout>
         </ThemeProvider>
     );
