@@ -5,12 +5,8 @@ import PieGraph from "../../components/PieGraph";
 import { useState, useEffect } from "react";
 import { Card } from "react-bootstrap";
 
-export default function Chart() {
-  const [chart, setChart] = useState("");
-
-  useEffect(() => {
-    setChart(localStorage.getItem("chartName"));
-  }, []);
+export default function Chart({ chartName }) {
+  useEffect(() => {}, [props]);
 
   const getChart = () => {
     switch (chart) {
