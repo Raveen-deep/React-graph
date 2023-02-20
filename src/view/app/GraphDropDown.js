@@ -18,7 +18,8 @@ const MenuProps = {
   },
 };
 
-const names = ["Line Chart", "Bar Chart", "Pie Chart", "Doughnut Graph"];
+const names = ["Line Chart", "Bar Chart", "Pie Chart", "Doughnut Graph","Mixed Graph"];
+
 const GraphDropDown = ({ chartName, setChartName }) => {
   const handleChange = (event) => {
     const {

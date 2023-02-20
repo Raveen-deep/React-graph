@@ -35,16 +35,16 @@ function DoughnutGraph(props) {
       },
     ],
   };
-  // const options = {
-  //   // plugins: {
-  //   //   legend: false, // Hide legend
-  //   // },
-  // };
+  const options = {
+    plugins: {
+      legend: false, // Hide legend
+    },
+  };
   return (
     <div>
       <Doughnut
         data={data}
-        // options={options}
+        options={options}
         style={{ maxWidth: "180px", maxHeight: "150px" }}
       />
     </div>
